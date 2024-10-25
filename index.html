@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องคำนวณ BMI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>เครื่องคำนวณ BMI</h1>
+    <form id="bmiForm">
+        <label for="weight">น้ำหนัก (กิโลกรัม):</label>
+        <input type="number" id="weight" required>
+        
+        <label for="height">ส่วนสูง (เซนติเมตร):</label>
+        <input type="number" id="height" required>
+        
+        <button type="submit">คำนวณ BMI</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('bmiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // แปลงเป็นเมตร
+            
+            const bmi = weight / (height * height);
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.innerHTML = `ค่า BMI ของคุณคือ: ${bmi.toFixed(2)}<br>`;
+            
+            if (bmi < 18.5) {
+                resultDiv.innerHTML += "คุณอยู่ในเกณฑ์น้ำหนักน้อย / ผอม";
+            } else if (bmi < 25) {
+                resultDiv.innerHTML += "คุณอยู่ในเกณฑ์ปกติ (สุขภาพดี)";
+            } else if (bmi < 30) {
+                resultDiv.innerHTML += "คุณอยู่ในเกณฑ์ท้วม / โรคอ้วนระดับ 1";
+            } else {
+                resultDiv.innerHTML += "คุณอยู่ในเกณฑ์อ้วน / โรคอ้วนระดับ 2";
+            }
+        });
+    </script>
+</body>
+</html>
